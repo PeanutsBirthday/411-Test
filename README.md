@@ -16,6 +16,9 @@ view adds and rms that are not yet pushed
 
 	git status 
 
+update code locally to match repo 
+
+	git pull
 tips: 
 dont commit your fucking ssh keys 
 ssh keys need to be added to your profile to push from your computer 
