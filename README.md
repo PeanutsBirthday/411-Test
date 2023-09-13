@@ -14,4 +14,10 @@ pushing files to repo
 
 
 
-tips: dont commit your fucking ssh keys 
+tips: 
+dont commit your fucking ssh keys 
+ssh keys need to be added to your profile to push from your computer 
+view current setting for the user 
+
+	git config --list
+
