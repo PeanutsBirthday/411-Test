@@ -12,7 +12,9 @@ pushing files to repo
 
 	git push -u origin main
 
+view adds and rms that are not yet pushed 
 
+	git status 
 
 tips: 
 dont commit your fucking ssh keys 
