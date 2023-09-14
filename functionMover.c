@@ -21,3 +21,17 @@ int main(int argc, char *argv[]) {
   }
   return 0;
 }
+
+////////////////////////////////////////////////////////////////////////////
+
+void *memcpy(void *dest, const void *src, size_t n){
+  unsigned char *d = (unsigned char *)dest;
+  const unsigned char *s = (unsigned char *)src;
+  size_t i;
+  unsigned char tmp;
+  for(i = 0; i < n; ++i){
+    tmp = s[i];
+    d[i] = tmp;
+  }
+  return dest;
+}
