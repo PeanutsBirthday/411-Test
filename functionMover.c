@@ -24,14 +24,18 @@ int main(int argc, char *argv[]) {
 
 ////////////////////////////////////////////////////////////////////////////
 
-void *memcpy(void *dest, const void *src, size_t n){
-  unsigned char *d = (unsigned char *)dest;
-  const unsigned char *s = (unsigned char *)src;
-  size_t i;
-  unsigned char tmp;
-  for(i = 0; i < n; ++i){
-    tmp = s[i];
-    d[i] = tmp;
-  }
-  return dest;
+#include <linux/kernel.h>
+#include <linux/syscalls.h>
+#include <linux/uaccess.h>
+#include <linux/errno.h>
+
+SYSCALL_DEFINE3(memory_copy, unsigned char user *,to, unsigned char user *, from, int, size){
+	if( access_ok(VERIFY_READ, from, size) ){
+		if( !( get_user(to, from) )){//return 0 on success 
+			if( !( put_user(to, from) )){//return 0 on success {
+				return 0;//successful copy
+			}
+		}
+	}
+	return -EFAULT; //copy fails 
 }
