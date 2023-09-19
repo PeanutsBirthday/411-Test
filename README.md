@@ -6,7 +6,7 @@ adding files and folders, not in .gitignore
 
 files need to be commited before they can be pushed, so commit changes 
 
-	git commit file.type anotherFile.type
+	git commit file.type anotherFile.type -m "message about the commit"
 
 pushing files to repo 
 
