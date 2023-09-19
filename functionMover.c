@@ -30,7 +30,7 @@ int main(int argc, char *argv[]) {
 #include <linux/errno.h>
 
 //void *memcpy(void *dest, const void *src, size_t n)
-SYSCALL_DEFINE3(memory_copy, unsigned char user *,to, unsigned char user *, from, int, size){
+SYSCALL_DEFINE3(memory_copy, unsigned char __user *,to, unsigned char __user *, from, int, size){
 	if( access_ok(VERIFY_READ, from, size) ){
 		for (int ii = 0; ii < size; i++) {
       		  	if (get_user(value, (from + ii) )) {
