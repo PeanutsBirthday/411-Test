@@ -29,13 +29,17 @@ int main(int argc, char *argv[]) {
 #include <linux/uaccess.h>
 #include <linux/errno.h>
 
+//void *memcpy(void *dest, const void *src, size_t n)
 SYSCALL_DEFINE3(memory_copy, unsigned char user *,to, unsigned char user *, from, int, size){
 	if( access_ok(VERIFY_READ, from, size) ){
-		if( !( get_user(to, from) )){//return 0 on success 
-			if( !( put_user(to, from) )){//return 0 on success {
-				return 0;//successful copy
-			}
-		}
+		for (int ii = 0; ii < size; i++) {
+      		  	if (get_user(value, (from + ii) )) {
+      				return -EFAULT; // failed copy 
+      		  	}
+        		if (put_user(value, (to + ii) )) {
+            			return -EFAULT; // failed copy 
+        		}
+    		}	
 	}
-	return -EFAULT; //copy fails 
+	return 0; //successful copy 
 }
