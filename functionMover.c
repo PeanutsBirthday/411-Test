@@ -1,12 +1,8 @@
 void successful(){
-        unsigned char from[100] = "Hello, World!"; // Source data
-        unsigned char to[100];                     // Destination buffer
-        int size = strlen(from) + 1;               // Include null terminator
+        unsigned char from[size] = "Hello, World!";
+        unsigned char to[size];
+        //int size = strlen(from) + 1;
 
-        // Initialize the destination buffer with zeros
-        //memset(to, 0, sizeof(to));
-
-        // Call the syscall to copy data from 'from' to 'to'
         long result = syscall(549, to, from, size); 
 
         if (result == 0) {
@@ -23,23 +19,104 @@ void successful(){
         perror("Syscall failed");
         }
 }
-
-
 //invalid size
-//null from or to?
-//from is to?
-//
-void error(){
+void sizeError(){
+        //invalid size
+        int size = 100;
+        unsigned char from[size] = "Hello, World!";
+        unsigned char to[size];
+        //int size = strlen(from) + 1;
 
+        long result = syscall(549, to, from, (size*2) ); 
+
+        if (result != 0) {
+                printf("Syscall failed successfully!\n");
+                printf("from: %s\n", from);
+                //for (int ii = 0; ii < size; ii++) {
+                //      printf("%c", from[ii]);
+                //}
+        printf("to: %s\n", to);
+                //for (int i = 0; i < size; i++) {
+                //      printf("%c", from[i]);
+                //}
+        } else {
+        perror("Syscall failed to fail");
+        }
 }
+void nullCopyFrom(){
+//null from or to?
+        int size = 100;
+        unsigned char from[size] = null;
+        unsigned char to[size]; 
 
+        long result = syscall(549, to, from, size);
 
+        if (result != 0) {
+                printf("Syscall failed successfully!\n");
+                printf("from: %s\n", from);
+                //for (int ii = 0; ii < size; ii++) {
+                //      printf("%c", from[ii]);
+                //}
+        printf("to: %s\n", to);
+                //for (int i = 0; i < size; i++) {
+                //      printf("%c", from[i]);
+                //}
+        } else {
+        perror("Syscall failed to fail");
+        }
+}
+void nullCopyTo(){
+//null from or to?
+        int size = 100;
+        unsigned char from[size] = "Hello, World!";
+        unsigned char to[0]; 
 
+        long result = syscall(549, to, from, size);
+
+        if (result != 0) {
+                printf("Syscall failed successfully!\n");
+                printf("from: %s\n", from);
+                //for (int ii = 0; ii < size; ii++) {
+                //      printf("%c", from[ii]);
+                //}
+        printf("to: %s\n", to);
+                //for (int i = 0; i < size; i++) {
+                //      printf("%c", from[i]);
+                //}
+        } else {
+        perror("Syscall failed to fail");
+        }
+}
+void toSelf(){
+//from is to?
+        int size = 100;
+        unsigned char from[size] = "Hello, World!";
+        //unsigned char to[0]; 
+
+        long result = syscall(549, from, from, size);
+
+        if (result != 0) {
+                printf("Syscall failed successfully!\n");
+                printf("from: %s\n", from);
+                //for (int ii = 0; ii < size; ii++) {
+                //      printf("%c", from[ii]);
+                //}
+        printf("to: %s\n", from);
+                //for (int i = 0; i < size; i++) {
+                //      printf("%c", from[i]);
+                //}
+        } else {
+        perror("Syscall failed to fail");
+        }
+}
 
 
 int main() {
         successful();
-        error();
+        sizeError();
+        nullCopyFrom();
+        nullCopyTo();
+        toSelf();
         return 0;
 }
 
